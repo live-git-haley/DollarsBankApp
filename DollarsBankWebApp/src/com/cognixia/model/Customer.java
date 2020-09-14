@@ -2,8 +2,7 @@ package com.cognixia.model;
 
 public class Customer {
 	
-	private int id;
-	private static int count = 1;
+	private Long id;
 	private String firstName;
 	private String lastName;
 	private String dob;
@@ -12,10 +11,10 @@ public class Customer {
 	private double amount;
 	
 	
-	public Customer(String firstName, String lastName, String dob, String email, String password,
+	public Customer(Long id, String firstName, String lastName, String dob, String email, String password,
 			double amount) {
 		super();
-		this.id = count++;
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dob = dob;
@@ -26,7 +25,7 @@ public class Customer {
 	
 
 	public Customer() {
-		this.id = count++;
+		this.id = 1L;
 		this.firstName = "NA";
 		this.lastName = "NA";
 		this.dob = "01/01/1990";
@@ -38,12 +37,12 @@ public class Customer {
 
 	
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -37,7 +37,7 @@ public class DollarsBankController {
 		System.out.println("Initial $$ Amount: ");
 		double amount = input.nextDouble();
 		
-		Customer c1 = new Customer(firstName, lastName, dob, email, password, amount);
+		Customer c1 = new Customer(1L, firstName, lastName, dob, email, password, amount);
 		
 		input.close();
 		
