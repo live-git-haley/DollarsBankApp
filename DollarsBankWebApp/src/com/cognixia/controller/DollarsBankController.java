@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.cognixia.model.Customer;
 import com.cognixia.model.Transactions;
+import com.cognixia.repo.DepositRepo;
 
 public class DollarsBankController {
 	
@@ -44,20 +45,9 @@ public class DollarsBankController {
 		return(c1);
 	}
 	
-	public Customer login(List<Customer> customerList) {
+	public Customer login(List<Customer> customerList, String email, String password) {
 		
 
-		Scanner input = new Scanner(System.in);
-
-		
-		System.out.println("******** Login ********");
-		System.out.println("Email: ");
-		String email = input.nextLine();
-		
-		System.out.println("Password: ");
-		String password = input.nextLine();
-		
-		
 		Boolean valid = false;
 		
 		for(int i = 0; i <= customerList.size()-1; i++) {
@@ -73,7 +63,7 @@ public class DollarsBankController {
 			System.out.println("Customer not found...");
 		}
 		
-		input.close();
+	
 		return new Customer();
 		
 	}
@@ -83,34 +73,36 @@ public class DollarsBankController {
 	
 	
 	
+//	
+//	public void deposit(double amt, Customer currentCustomer, List<Transactions> transactions) {
+//		
+//	
+//		currentCustomer.setAmount(currentCustomer.getAmount()+amt);
+//		Transactions transaction = new Transactions(currentCustomer.getId(), "Deposit", amt, "1/1/2020");
+//		transactions.add(transaction);
+//		
+//		
+//		
+//	}
+//	
+//	public void withdraw(double amt, Customer currentCustomer, List<Transactions> transactions) {
+//		
+//	
+//		
+//		currentCustomer.setAmount(currentCustomer.getAmount()-amt);
+//		
+//		Transactions transaction = new Transactions(currentCustomer.getId(), "Withdraw", amt, "1/1/2020");
+//		transactions.add(transaction);
+//		
+//		
+//		
+//	}
 	
-	public void deposit(double amt, Customer currentCustomer, List<Transactions> transactions) {
-		
-		@SuppressWarnings("deprecation")
-		Date date = new Date(9, 5, 2020);
-		
-		currentCustomer.setAmount(currentCustomer.getAmount()+amt);
-		Transactions transaction = new Transactions(currentCustomer.getId(), "Deposit", amt, date);
-		transactions.add(transaction);
-		
-		
-		
-	}
 	
-	public void withdraw(double amt, Customer currentCustomer, List<Transactions> transactions) {
-		
-		@SuppressWarnings("deprecation")
-		Date date = new Date(9, 5, 2020);
-		
-		currentCustomer.setAmount(currentCustomer.getAmount()-amt);
-		
-		Transactions transaction = new Transactions(currentCustomer.getId(), "Withdraw", amt, date);
-		transactions.add(transaction);
-		
-		
-		
-	}
-	
+//	public static void main(String[] args) {
+//		DepositRepo repo = new DepositRepo();
+//		repo.makeDeposit(3L, 25.0);
+//	}
 	
 	
 	

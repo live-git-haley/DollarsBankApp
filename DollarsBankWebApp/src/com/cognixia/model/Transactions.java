@@ -4,17 +4,16 @@ import java.util.Date;
 
 public class Transactions {
 	
-	private static int count = 1;
 	private int id;
 	private Long customerId;
 	private String type;
 	private double amount;
-	private Date date;
+	private String date;
 	
 	
-	public Transactions(Long customerId, String type, double amount, Date date) {
+	public Transactions(int id, Long customerId, String type, double amount, String date) {
 		super();
-		this.id = count++;
+		this.id = id;
 		this.customerId = customerId;
 		this.type = type;
 		this.amount = amount;
@@ -62,12 +61,12 @@ public class Transactions {
 	}
 
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
