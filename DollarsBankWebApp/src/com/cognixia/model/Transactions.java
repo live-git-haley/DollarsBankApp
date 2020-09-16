@@ -19,6 +19,14 @@ public class Transactions {
 		this.amount = amount;
 		this.date = date;
 	}
+	
+	public Transactions() {
+		this.id = -1;
+		this.customerId = -1L;
+		this.type = "NA";
+		this.amount = 0.0;
+		this.date = "NA";
+	}
 
 
 	public int getId() {

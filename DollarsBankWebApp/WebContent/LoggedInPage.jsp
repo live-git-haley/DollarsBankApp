@@ -21,6 +21,8 @@
 
 	<%
 		String name = (String) session.getAttribute("name");
+		String currentAmount =(String) session.getAttribute("currentAmount");
+		
 	%>
 	<h1>
 		Welcome to Dollar's Bank,
@@ -28,18 +30,37 @@
 		out.print(name);
 	%>
 	</h1>
+	
+	<h2>You currently have <%out.print(currentAmount); %> in your bank account</h2>
 
-	<h2>Deposit</h2>
+	Please select an option:
 
-	<form action="/DollarsBankWebApp/Deposit">
-		<div class="form-group">
-			<label for="email">Please enter amount to deposit:</label> 
-			<input type = "text" class="form-control" name="amount">
-		</div>
 
-		<button type="submit" class="btn btn-success">Submit</button>
+
+	<form action="/DollarsBankWebApp/TransactionInfo">
+		<button type="submit" name="history" class="btn btn-success">View
+			History</button>
+	</form>
+	<form action="DepositPage.jsp">
+		<button type="submit" name="deposit" class="btn btn-success">Make
+			Deposit</button>
+	</form>
+	<form action="WithdrawPage.jsp">
+		<button type="submit" name="withdraw" class="btn btn-success">Withdraw</button>
+	</form>
+	<form action="/DollarsBankWebApp/Info">
+		<button type="submit" name="info" class="btn btn-success">Account
+			Details</button>
+	</form>
+	<form action="TransferPage.jsp">
+		<button type="submit" name="transfer" class="btn btn-success">Transfer
+			Funds</button>
 	</form>
 
+
+
+
+	</form>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

@@ -14,10 +14,10 @@ import javax.servlet.http.HttpSession;
 import com.cognixia.controller.DollarsBankController;
 import com.cognixia.model.Customer;
 import com.cognixia.repo.CustomerRepo;
-import com.cognixia.repo.DepositRepo;
+import com.cognixia.repo.TransactionRepo;
 
-@WebServlet("/Deposit")
-public class Deposit extends HttpServlet{
+@WebServlet("/Withdraw")
+public class Withdraw extends HttpServlet {
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,16 +27,13 @@ public class Deposit extends HttpServlet{
 	
 	System.out.println(amount);
 	HttpSession httpSession = req.getSession();
-	DepositRepo repo = new DepositRepo();
+	TransactionRepo repo = new TransactionRepo();
 
-	
-	
-	repo.makeDeposit(2L, amount2);
+	repo.makeTransaction(2L, amount2, "withdraw");
 
-	
+	resp.sendRedirect("LoggedInPage.jsp");
+
 	
 	}
 
 }
-
-

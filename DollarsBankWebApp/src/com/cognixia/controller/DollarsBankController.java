@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 import com.cognixia.model.Customer;
 import com.cognixia.model.Transactions;
-import com.cognixia.repo.DepositRepo;
 
 public class DollarsBankController {
 	
