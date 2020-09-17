@@ -13,39 +13,96 @@ import com.cognixia.model.Transactions;
 public class TransactionRepo {
 	int count;
 	int newCount;
+	String transAccount;
 	
 	
-	public double makeTransaction(Long id, double amount, String action) {
+	public double makeTransaction(Long id, double amount, String action, String accountType) {
 		double newAmount = 0.0;
-		
+	
+		System.out.println("MAke transaction was called");
 
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("after class for name");
+			
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dollarbank", "root",
 					"haleykobe2");
 
-			System.out.println("Connected!");
 
 			Statement statement = connection.createStatement();
 
-			ResultSet currAmount = statement.executeQuery("select amount from Customer where id = " + id);
+			ResultSet currAmount = statement.executeQuery("select amount from accounts WHERE customerId = " + id + " And accountType = '"  
+										+ accountType +  "'");
+			
+			System.out.println(currAmount.first());
 			double amt = 0;
-			while (currAmount.next()) {
-
-				amt = currAmount.getDouble("amount");
-				System.out.println(amt);
-			}
 		
-			if(action.equals("withdraw")) {
+
+			amt = currAmount.getDouble("amount");
+			if(amt < amount && action.equals("withdraw")) {
+				return -1.0;
+			}
+			
+			if(amt < amount && action.equals("transfer")) {
+				return -1.0;
+			}
+			
+			
+			if(action.equals("transfer")) {
+			
+				if(accountType.equals("saving")) {
+					transAccount = "checking"; 
+				}
+				else {
+					transAccount = "saving";
+				}
+					
+			}
+			
+			System.out.println("Action from the REPO >>>> " + action);
+			System.out.println("Account transfer FROM: " + accountType);
+
+			
+			System.out.println("Account to transfer TO: " + transAccount);
+	
+			switch(action){
+			
+			case "withdraw":
 				newAmount = amt- amount;
-			}
-			else {
+				break;
+	
+			case "deposit":
 				newAmount = amt+ amount;
-			}
+				break;
 				
-			System.out.println("new Amount "+newAmount);
+		
+			}
+			
+			if(action.equals("transfer")) {
+				
+				System.out.println("In the transfer switch statement");
+				newAmount = amt- amount;
+				
+				ResultSet amount2 = statement.executeQuery("select amount from accounts WHERE customerId = " + id + " And accountType = '"  
+						+ transAccount +  "'");
+				
+				System.out.println(amount2.first());
+				double amt2 = amount2.getDouble("amount");
+				System.out.println("Amount pulled from account transfer FROM>>>" + amt2);
+				System.out.println("Amount pulled from account transfer TO>>>" + amt);
+				
+				double newAmount2 = amount + amt2;
+				System.out.println("New Amount for account transfer to>>" +  newAmount2);
+				
+				statement.executeUpdate("UPDATE accounts SET amount = " + newAmount2 + " WHERE customerId = " + id + " And accountType = '"
+						+ transAccount + "'");
+
+				amount2.close();
+				
+			}
+			
+			System.out.println(" __________AFTER THE SWITCH STATEMENT___________ ");
+			System.out.println("New Amount>>>>> "+newAmount);
 			ResultSet max = statement.executeQuery("select max(id) as 'maxValue' from transactions");
 			while(max.next()) {
 				count = max.getInt("maxValue");
@@ -53,14 +110,24 @@ public class TransactionRepo {
 			}
 		
 			newCount = count+1;
-			System.out.println("ID IN REPO>>>> " + id);
-			statement.executeUpdate("UPDATE customer SET amount = " + newAmount + " WHERE id = " + id);
+			
+			
+			statement.executeUpdate("UPDATE accounts SET amount = " + newAmount + " WHERE customerId = " + id + " And accountType = '"
+					+ accountType + "'");
 			if(amount!= 0.0) {
-			statement.executeUpdate("insert into transactions values("+newCount+", " + id + ", '"+action + "'," + amount + ", '1/1/2020')");
+			statement.executeUpdate("insert into transactions values("
+					+newCount
+					+", " + id 
+					+ ", '"+action 
+					+ "'," + amount 
+					+ ", '1/1/2020', '" 
+					+ accountType + "')");
 			}
 			connection.close();
 			currAmount.close();
 			statement.close();
+			max.close();
+			
 		
 
 //		| ClassNotFoundException

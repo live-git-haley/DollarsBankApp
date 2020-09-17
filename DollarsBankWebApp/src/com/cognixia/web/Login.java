@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.cognixia.controller.DollarsBankController;
+import com.cognixia.model.Account;
 import com.cognixia.model.Customer;
+import com.cognixia.repo.AccountRepo;
 import com.cognixia.repo.CustomerRepo;
 import com.cognixia.repo.TransactionRepo;
 
@@ -21,21 +23,20 @@ public class Login extends HttpServlet{
 	Long id;
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Got into servlet>>>>>");
 		String email = req.getParameter("email");
 		String password = req.getParameter("pwd");
 
 		HttpSession httpSession = req.getSession();
 		CustomerRepo repo = new CustomerRepo();
-		TransactionRepo repo2 = new TransactionRepo();
-
+		AccountRepo repo2 = new AccountRepo();
+		
 		
 		DollarsBankController controller = new DollarsBankController();
 		
 		List<Customer> list = repo.getCustomers("getMany", -1L);
 		Customer current = controller.login(list, email, password);
 
-		
+		boolean redirect = false;
 		if(current.getLastName()!= "NA") {
 			
 			req.getSession().setAttribute("name",current.getFirstName());
@@ -45,17 +46,33 @@ public class Login extends HttpServlet{
 
 		}
 		
-		double currentAmount = repo2.makeTransaction(id, 0.0, "deposit");
+		else {
+			redirect = true;
+			
+		}
 		
-		String parsed = Double.toString(currentAmount);
+		
+		Account checkings = repo2.getAccount("checking", id);
+		Account savings = repo2.getAccount("saving", id);
+
 		
 		
-		req.getSession().setAttribute("currentAmount",parsed);
-//		RequestDispatcher requestDispatcher = req.getRequestDispatcher("LoggedInPage.jsp");
-//		requestDispatcher.forward(req, resp);
-//		
+		String currentChecking = Double.toString(checkings.getAmount());
+		String currentSavings = Double.toString(savings.getAmount());
+
+		
+		
+		req.getSession().setAttribute("currentChecking",currentChecking);
+		req.getSession().setAttribute("currentSavings",currentSavings);
+
+	
+		if(redirect) {
+			resp.sendRedirect("LoginError.jsp");
+			
+		}
+		else {
 		resp.sendRedirect("LoggedInPage.jsp");
-		
+		}
 		
 //		RequestDispatcher requestDispatcher = req.getRequestDispatcher("add-sport.html");
 		// resp.sendRedirect("added-product.jsp");

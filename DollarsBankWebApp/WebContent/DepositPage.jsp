@@ -33,13 +33,19 @@
 
 	<form action="/DollarsBankWebApp/Transaction">
 		<div class="form-group">
-			<label for="email">Please enter amount to deposit:</label> 
-			<input type = "text" class="form-control" name="amount">
-			<input type = "hidden" class = "form-control" name = "action" value = "deposit"> 
+			<label for="email">Please enter amount to deposit:</label> <input
+				type="text" class="form-control" name="amount"> <input
+				type="hidden" class="form-control" name="action" value="deposit">
 		</div>
+		<input type="radio" id="checkings" name="accountType" value="checking">
+		<label for="checkings">Checkings</label><br>
+		<input type="radio" id="savings" name="accountType" value="saving">
+		<label for="savings">Savings</label><br>
 
 		<button type="submit" class="btn btn-success">Submit</button>
 	</form>
+
+
 
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

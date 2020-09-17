@@ -21,6 +21,9 @@
 
 	<%
 		String name = (String) session.getAttribute("name");
+		String currentSavings =(String) session.getAttribute("currentSavings");
+		String currentChecking =(String) session.getAttribute("currentChecking");
+
 	%>
 	<h1>
 		Welcome to Dollar's Bank,
@@ -28,8 +31,29 @@
 		out.print(name);
 	%>
 	</h1>
-		<h2>You can transfer funds here</h2>
+		<h2>Transfer Funds</h2>
+		
+		<h3>You currently have <%out.print(currentChecking); %> in your Checking account</h3>
+	<br>
+	<h3>You currently have <%out.print(currentSavings); %> in your Savings account</h3>
+	
+	<form action="/DollarsBankWebApp/Transaction">
+		<div class="form-group">
+			<label for="email">Please enter amount to transfer:</label> <input
+				type="text" class="form-control" name="amount"> <input
+				type="hidden" class="form-control" name="action" value="transfer">
+		</div>
+		<p>Please select account you would like to transfer from</p>
+		<input type="radio" id="checkings" name="accountType" value="checking">
+		<label for="checkings">Checkings</label><br>
+		<input type="radio" id="savings" name="accountType" value="saving">
+		<label for="savings">Savings</label><br>
 
+		<button type="submit" class="btn btn-success">Submit</button>
+	</form>
+
+	
+		
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

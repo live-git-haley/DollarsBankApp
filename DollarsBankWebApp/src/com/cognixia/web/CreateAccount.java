@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.cognixia.controller.DollarsBankController;
+import com.cognixia.model.Account;
 import com.cognixia.model.Customer;
 import com.cognixia.repo.AccountRepo;
 import com.cognixia.repo.CustomerRepo;
@@ -19,6 +20,7 @@ import com.cognixia.repo.TransactionRepo;
 
 @WebServlet("/CreateAccount")
 public class CreateAccount extends HttpServlet {
+	static Long countID =1L;
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,25 +31,47 @@ public class CreateAccount extends HttpServlet {
 		String password = req.getParameter("pwd");
 		String amount = req.getParameter("amount");
 		Customer newCustomer = new Customer();
+		AccountRepo repo2 = new AccountRepo();
+
+		
+		double initialAmount =  Double.parseDouble(amount);
 		
 		newCustomer.setFirstName(firstName);
 		newCustomer.setLastName(lastName);
 		newCustomer.setDob(dob);
 		newCustomer.setEmail(email);
-		newCustomer.setAmount(0.0);
-		newCustomer.setId(11L);
+		newCustomer.setinitialAmount(initialAmount);
+		newCustomer.setId(1L);
 		newCustomer.setPassword(password);
 		
-		AccountRepo repo = new AccountRepo();
+		CustomerRepo repo = new CustomerRepo();
+		
+		System.out.println(newCustomer.toString());
 		
 		repo.newCustomer(newCustomer);
+		
+		Account checkings = repo2.getAccount("checking", countID);
+		Account savings = repo2.getAccount("saving", countID);
+
+		
+		
+		String currentChecking = Double.toString(checkings.getAmount());
+		String currentSavings = Double.toString(savings.getAmount());
+
+		
+		
+		req.getSession().setAttribute("currentChecking",currentChecking);
+		req.getSession().setAttribute("currentSavings",currentSavings);
+
+		
+		
 		
 		
 
 //		RequestDispatcher requestDispatcher = req.getRequestDispatcher("index.jsp");
 		resp.sendRedirect("index.jsp");
 //		requestDispatcher.forward(req, resp);
-
+		countID++;
 	
 	
 	}

@@ -23,17 +23,18 @@
 <body>
 
 	<%
-
+		String name = (String) session.getAttribute("name");
 		List<Transactions> list = (List<Transactions>) session.getAttribute("history");
-		
-		
+	
 	%>
 	<h1>
 		Welcome to Dollar's Bank,
 		<%
-		
+		out.print(name);
 	%>
 	</h1>
+
+
 
 	<h2>History</h2>
 	<p>
@@ -49,6 +50,8 @@
 	
 	%>
 	</p>
+	
+  
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

@@ -38,6 +38,12 @@
 			<input type = "hidden" class = "form-control" name = "action" value = "withdraw"> 
 			
 		</div>
+		
+		<input type="radio" id="checkings" name="accountType" value="checking">
+		<label for="checkings">Checkings</label><br>
+		<input type="radio" id="savings" name="accountType" value="saving">
+		<label for="savings">Savings</label><br>
+		
 
 		<button type="submit" class="btn btn-success">Submit</button>
 	</form>

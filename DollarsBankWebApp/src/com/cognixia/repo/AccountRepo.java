@@ -8,12 +8,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cognixia.model.Account;
 import com.cognixia.model.Customer;
 
 public class AccountRepo {
 	int newCount;
 	int count;
-	public void newCustomer(Customer customer) {
+	public Account getAccount(String type, Long customerId) {
+		Account newAccount = new Account();
+
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
@@ -23,40 +26,39 @@ public class AccountRepo {
 
 			System.out.println("Connected!");
 		
-
 			Statement statement = connection.createStatement();
 			
-			ResultSet max = statement.executeQuery("select max(id) as 'maxValue' from customer");
-			while(max.next()) {
-				count = max.getInt("maxValue");
+			ResultSet account = statement.executeQuery("select * from accounts where customerId = " + customerId 
+					+ " and accountType = '" + type + "'");
+
+			while(account.next()) {
+
+				newAccount.setCustomerId(customerId);
+				newAccount.setType(type);
+				newAccount.setAmount(account.getDouble("amount"));
+				newAccount.setId(account.getLong("id"));
 				
 			}
-		
-			newCount = count+1;
+			
+			
+			
+			
 
-			statement.executeUpdate("insert into customer values("
-					+ newCount + " , '"
-					+ customer.getFirstName() + "', '"
-					+ customer.getLastName() + "', '" 
-					+ customer.getDob() + "' , '"
-					+ customer.getEmail() + "' , '"
-					+ customer.getPassword() + "' , "
-					+ customer.getAmount() + ")");
-
-			System.out.println("Success added into DB");
+			
+			System.out.println("Got the account information!");
 			
 		
 		
 			statement.close();
 			connection.close();
-
+	
 
 
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
 		
-		
+		return(newAccount);
 
 	}
 

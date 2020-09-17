@@ -1,10 +1,13 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ page import="com.cognixia.model.Transactions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Logged in</title>
+<title>History</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -19,51 +22,10 @@
 </head>
 <body>
 
-	<%
-		String name = (String) session.getAttribute("name");
-		String currentSavings =(String) session.getAttribute("currentSavings");
-		String currentChecking =(String) session.getAttribute("currentChecking");
-
-		
-	%>
-	<h1>
-		Welcome to Dollar's Bank,
-		<%
-		out.print(name);
-	%>
-	</h1>
-	<br>
-	<h2>You currently have <%out.print(currentChecking); %> in your Checking account</h2>
-	<br>
-	<h2>You currently have <%out.print(currentSavings); %> in your Savings account</h2>
-
-	Please select an option:
-
-
-
-	<form action="/DollarsBankWebApp/TransactionInfo">
-		<button type="submit" name="history" class="btn btn-success">View
-			History</button>
-	</form>
-	<form action="DepositPage.jsp">
-		<button type="submit" name="deposit" class="btn btn-success">Make
-			Deposit</button>
-	</form>
-	<form action="WithdrawPage.jsp">
-		<button type="submit" name="withdraw" class="btn btn-success">Withdraw</button>
-	</form>
-	<form action="/DollarsBankWebApp/Info">
-		<button type="submit" name="info" class="btn btn-success">Account
-			Details</button>
-	</form>
-	<form action="TransferPage.jsp">
-		<button type="submit" name="transfer" class="btn btn-success">Transfer
-			Funds</button>
-	</form>
-
-
-
-
+	<h2> Insufficient Funds, please enter valid amount</h2>
+	
+	<form action="LoggedInPage.jsp">
+		<button type="submit" name="transfer" class="btn btn-success">Go Back</button>
 	</form>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

@@ -2,25 +2,31 @@ package com.cognixia.model;
 
 public class Customer {
 	
+	public static Long COUNT;
+
+	  static {
+	    COUNT = 1L;
+	  }
 	private Long id;
 	private String firstName;
 	private String lastName;
 	private String dob;
 	private String email;
 	private String password;
-	private double amount;
+	private double initialAmount;
 	
 	
 	public Customer(Long id, String firstName, String lastName, String dob, String email, String password,
-			double amount) {
+			double initialAmount) {
 		super();
-		this.id = id;
+		this.id = COUNT;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dob = dob;
 		this.email = email;
 		this.password = password;
-		this.amount = amount;
+		this.initialAmount = initialAmount;
+		COUNT++;
 	}
 	
 
@@ -29,7 +35,7 @@ public class Customer {
 		this.firstName = "NA";
 		this.lastName = "NA";
 		this.dob = "01/01/1990";
-		this.amount = 0.0;
+		this.initialAmount = 0.0;
 		this.email ="NA";
 		this.password = "NA";
 	}
@@ -97,20 +103,20 @@ public class Customer {
 	}
 
 
-	public double getAmount() {
-		return amount;
+	public double getinitialAmount() {
+		return initialAmount;
 	}
 
 
-	public void setAmount(double amount) {
-		this.amount = amount;
+	public void setinitialAmount(double initialAmount) {
+		this.initialAmount = initialAmount;
 	}
 
 
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dob=" + dob
-				+ ", email=" + email + ", password=" + password + ", amount=" + amount + "]";
+				+ ", email=" + email + ", password=" + password + ", initialAmount=" + initialAmount + "]";
 	}
 
 
