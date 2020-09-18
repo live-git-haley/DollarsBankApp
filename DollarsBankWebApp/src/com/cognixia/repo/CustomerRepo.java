@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.cognixia.model.Count;
 import com.cognixia.model.Customer;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -81,7 +82,7 @@ public class CustomerRepo {
 
 	}
 
-	public void newCustomer(Customer customer) {
+	public void newCustomer(Customer customer, Count count) {
 	
 		System.out.println("INSIDE THE NEW CUSTOMER METHOD_____________");
 
@@ -113,7 +114,8 @@ public class CustomerRepo {
 			
 			
 			statement.executeUpdate("insert into accounts values(" + customer.getId() + ", " + customer.getId()+ ", 'checking', " + customer.getinitialAmount() + ")");
-			Long newID = customer.getId() +1;
+			Long newID = customer.getId() +1L;
+			System.out.println("NEW ID COUNT" + newID);
 			statement.executeUpdate("insert into accounts values(" + newID + ", " + customer.getId() + ", 'saving', 0.0)");
 
 

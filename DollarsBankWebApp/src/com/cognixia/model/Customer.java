@@ -1,13 +1,13 @@
 package com.cognixia.model;
 
-public class Customer {
-	
-	public static Long COUNT;
+import java.util.concurrent.atomic.AtomicInteger;
 
-	  static {
-	    COUNT = 1L;
-	  }
+public class Customer {
+    private static AtomicInteger atomicInteger = new AtomicInteger(0);
+
+	
 	private Long id;
+	private static Long count = 0L;
 	private String firstName;
 	private String lastName;
 	private String dob;
@@ -19,19 +19,19 @@ public class Customer {
 	public Customer(Long id, String firstName, String lastName, String dob, String email, String password,
 			double initialAmount) {
 		super();
-		this.id = COUNT;
+		this.id =  (long) atomicInteger.incrementAndGet();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dob = dob;
 		this.email = email;
 		this.password = password;
 		this.initialAmount = initialAmount;
-		COUNT++;
+	
 	}
 	
 
 	public Customer() {
-		this.id = 1L;
+		this.id =  (long) atomicInteger.incrementAndGet();
 		this.firstName = "NA";
 		this.lastName = "NA";
 		this.dob = "01/01/1990";

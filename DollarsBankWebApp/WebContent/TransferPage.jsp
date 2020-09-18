@@ -15,6 +15,18 @@
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="styles.css" />
+<link href='https://fonts.googleapis.com/css?family=Arbutus Slab' rel='stylesheet'>
+<style>
+body {
+    font-family: 'Arbutus Slab';font-size: 22px;
+    text-align: center;
+}
+
+.form-group{
+	padding-left: 275px;
+	width: 70%;
+}
+</style>
 
 </head>
 <body>

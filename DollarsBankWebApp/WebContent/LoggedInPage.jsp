@@ -14,8 +14,27 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
+	<link href='https://fonts.googleapis.com/css?family=Arbutus Slab' rel='stylesheet'>
 <link rel="stylesheet" type="text/css" href="styles.css" />
+<link href='https://fonts.googleapis.com/css?family=Arbutus Slab' rel='stylesheet'>
+<style>
+body {
+    font-family: 'Arbutus Slab';font-size: 22px;
+  
+}
 
+.buttons{
+	width: 100%;
+}
+
+h1{
+	text-align: center;
+}
+
+h4{
+	color: blue;
+}
+</style>
 </head>
 <body>
 
@@ -33,13 +52,13 @@
 	%>
 	</h1>
 	<br>
-	<h2>You currently have <%out.print(currentChecking); %> in your Checking account</h2>
+	<h2>You currently have $<%out.print(currentChecking); %> in your Checking account</h2>
 	<br>
-	<h2>You currently have <%out.print(currentSavings); %> in your Savings account</h2>
+	<h2>You currently have $<%out.print(currentSavings); %> in your Savings account</h2>
 
 	Please select an option:
 
-
+	<div class = "buttons">
 
 	<form action="/DollarsBankWebApp/TransactionInfo">
 		<button type="submit" name="history" class="btn btn-success">View
@@ -60,11 +79,19 @@
 		<button type="submit" name="transfer" class="btn btn-success">Transfer
 			Funds</button>
 	</form>
+	
+	<br>
+	<br>
+	<br>
+	<form action="index.jsp">
+		<button type="submit" name="transfer" class="btn btn-primary">Logout</button>
+	</form>
 
 
 
 
 	</form>
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

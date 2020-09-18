@@ -14,12 +14,20 @@
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="styles.css" />
+	
+<link rel="stylesheet" type="text/css" href="styles.css"/>
+<link href='https://fonts.googleapis.com/css?family=Arbutus Slab' rel='stylesheet'>
+<style>
+body {
+    font-family: 'Arbutus Slab';font-size: 22px;
+    text-align: center;
+}
+</style>
 
 </head>
-<body>
+<body >
 <h1> $$$ Welcome to Dollar's Bank $$$</h1>
-
+<div class = "home" >
 <form action="/DollarsBankWebApp/Login">
   <div class="form-group">
     <label for="email">Email address:</label>
@@ -38,6 +46,6 @@
 	
 
 </form>
-
+</div>
 </body>
 </html>

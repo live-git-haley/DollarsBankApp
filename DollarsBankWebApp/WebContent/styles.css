@@ -1,6 +1,16 @@
 body {
 	background-image: url("img/piggy.jpg");
 	
+
+	
+}
+
+.home{
+	background-color: purple;
+}
+
+h1{
+	color: blue;
 }
 
 

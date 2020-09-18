@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>History</title>
+<link href='https://fonts.googleapis.com/css?family=Arbutus Slab' rel='stylesheet'>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -18,7 +19,13 @@
 	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="styles.css" />
-
+<link href='https://fonts.googleapis.com/css?family=Arbutus Slab' rel='stylesheet'>
+<style>
+body {
+    font-family: 'Arbutus Slab';font-size: 22px;
+    text-align: center;
+}
+</style>
 </head>
 <body>
 

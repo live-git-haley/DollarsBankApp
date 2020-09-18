@@ -1,7 +1,10 @@
 package com.cognixia.model;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Account {
-	
+    private static AtomicInteger atomicInteger = new AtomicInteger(0);
+
 	private Long id;
 	private Long customerId;
 	private double amount;
@@ -9,14 +12,14 @@ public class Account {
 	
 	public Account(Long id, Long customerId, double amount, String type) {
 		super();
-		this.id = id;
+		this.id =  (long) atomicInteger.incrementAndGet();
 		this.customerId = customerId;
 		this.amount = amount;
 		this.type = type;
 	}
 	
 	public Account() {
-		this.id = -1L;
+		this.id =  (long) atomicInteger.incrementAndGet();
 		this.customerId = -1L;
 		this.amount = 0.0;
 		this.type = "NA";
