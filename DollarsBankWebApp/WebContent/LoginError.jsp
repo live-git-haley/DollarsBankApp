@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>History</title>
+<title>Login Error</title>
 <link href='https://fonts.googleapis.com/css?family=Arbutus Slab' rel='stylesheet'>
 
 <link rel="stylesheet"

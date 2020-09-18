@@ -20,11 +20,8 @@ public class AccountRepo {
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("after class for name");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dollarbank", "root",
 					"haleykobe2");
-
-			System.out.println("Connected!");
 		
 			Statement statement = connection.createStatement();
 			
@@ -39,18 +36,10 @@ public class AccountRepo {
 				newAccount.setId(account.getLong("id"));
 				
 			}
-			
-			
-			
-			
 
-			
-			System.out.println("Got the account information!");
-			
-		
-		
 			statement.close();
 			connection.close();
+			account.close();
 	
 
 

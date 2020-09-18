@@ -30,14 +30,12 @@ public class Transaction extends HttpServlet{
 		
 	double amount2 = Double.parseDouble(amount);
 	
-	System.out.println(amount);
 	HttpSession httpSession = req.getSession();
 	Object id = httpSession.getAttribute("id");
 	Long longID  = Long.parseLong(id.toString());
 	TransactionRepo repo = new TransactionRepo();
 	AccountRepo repo2 = new AccountRepo();
 
-	System.out.println("Action is>>> " + action);
 	switch(action){
 	
 	case "withdraw":
@@ -58,8 +56,6 @@ public class Transaction extends HttpServlet{
 	
 	Account checkings = repo2.getAccount("checking", longID);
 	Account savings = repo2.getAccount("saving", longID);
-
-	
 	
 	String currentChecking = Double.toString(checkings.getAmount());
 	String currentSavings = Double.toString(savings.getAmount());
@@ -72,16 +68,6 @@ public class Transaction extends HttpServlet{
 	
 	req.getSession().setAttribute("currentChecking",currentChecking);
 	req.getSession().setAttribute("currentSavings",currentSavings);
-
-
-	
-	
-	
-//	RequestDispatcher requestDispatcher = req.getRequestDispatcher("LoggedInPage.jsp");
-//	requestDispatcher.forward(req, resp);
-//	
-	
-	
 	resp.sendRedirect("LoggedInPage.jsp");
 
 	}

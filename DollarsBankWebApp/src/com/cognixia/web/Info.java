@@ -24,7 +24,6 @@ public class Info extends HttpServlet{
 	
 	HttpSession httpSession = req.getSession();
 	Object id = httpSession.getAttribute("id");
-	System.out.println("This is the id retrieved" + id.toString());
 	Long longID  = Long.parseLong(id.toString());
 	CustomerRepo repo = new CustomerRepo();
 	List<Customer> customer = repo.getCustomers("getOne", longID);
@@ -40,10 +39,6 @@ public class Info extends HttpServlet{
 	}
 
 	
-	
-//	RequestDispatcher requestDispatcher = req.getRequestDispatcher("InfoPage.jsp");
-//	requestDispatcher.forward(req, resp);
-//	
 	resp.sendRedirect("InfoPage.jsp");
 	
 	}

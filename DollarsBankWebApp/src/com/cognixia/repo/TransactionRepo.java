@@ -18,9 +18,6 @@ public class TransactionRepo {
 	
 	public double makeTransaction(Long id, double amount, String action, String accountType) {
 		double newAmount = 0.0;
-	
-		System.out.println("MAke transaction was called");
-
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
@@ -58,12 +55,7 @@ public class TransactionRepo {
 				}
 					
 			}
-			
-			System.out.println("Action from the REPO >>>> " + action);
-			System.out.println("Account transfer FROM: " + accountType);
 
-			
-			System.out.println("Account to transfer TO: " + transAccount);
 	
 			switch(action){
 			
@@ -80,19 +72,14 @@ public class TransactionRepo {
 			
 			if(action.equals("transfer")) {
 				
-				System.out.println("In the transfer switch statement");
 				newAmount = amt- amount;
 				
 				ResultSet amount2 = statement.executeQuery("select amount from accounts WHERE customerId = " + id + " And accountType = '"  
 						+ transAccount +  "'");
 				
-				System.out.println(amount2.first());
 				double amt2 = amount2.getDouble("amount");
-				System.out.println("Amount pulled from account transfer FROM>>>" + amt2);
-				System.out.println("Amount pulled from account transfer TO>>>" + amt);
 				
 				double newAmount2 = amount + amt2;
-				System.out.println("New Amount for account transfer to>>" +  newAmount2);
 				
 				statement.executeUpdate("UPDATE accounts SET amount = " + newAmount2 + " WHERE customerId = " + id + " And accountType = '"
 						+ transAccount + "'");
@@ -101,8 +88,7 @@ public class TransactionRepo {
 				
 			}
 			
-			System.out.println(" __________AFTER THE SWITCH STATEMENT___________ ");
-			System.out.println("New Amount>>>>> "+newAmount);
+
 			ResultSet max = statement.executeQuery("select max(id) as 'maxValue' from transactions");
 			while(max.next()) {
 				count = max.getInt("maxValue");
@@ -128,9 +114,6 @@ public class TransactionRepo {
 			statement.close();
 			max.close();
 			
-		
-
-//		| ClassNotFoundException
 
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println(e.getMessage());
@@ -144,11 +127,9 @@ public class TransactionRepo {
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
-			System.out.println("after class for name");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dollarbank", "root",
 					"haleykobe2");
 
-			System.out.println("Connected!");
 
 			Statement statement = connection.createStatement();
 

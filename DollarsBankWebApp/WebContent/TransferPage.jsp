@@ -22,10 +22,7 @@ body {
     text-align: center;
 }
 
-.form-group{
-	padding-left: 275px;
-	width: 70%;
-}
+
 </style>
 
 </head>

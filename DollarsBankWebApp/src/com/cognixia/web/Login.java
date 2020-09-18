@@ -74,8 +74,7 @@ public class Login extends HttpServlet{
 		resp.sendRedirect("LoggedInPage.jsp");
 		}
 		
-//		RequestDispatcher requestDispatcher = req.getRequestDispatcher("add-sport.html");
-		// resp.sendRedirect("added-product.jsp");
+
 	}
 
 }

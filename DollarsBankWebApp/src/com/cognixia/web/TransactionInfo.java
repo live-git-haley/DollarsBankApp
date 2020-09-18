@@ -26,24 +26,13 @@ public class TransactionInfo extends HttpServlet{
 	
 	HttpSession httpSession = req.getSession();
 	Object id = httpSession.getAttribute("id");
-	System.out.println("This is the id retrieved" + id.toString());
 	Long longID  = Long.parseLong(id.toString());
 	TransactionRepo repo = new TransactionRepo();
 
 	List<Transactions> list = repo.getTransactionsById(longID);
 	
-	for(Transactions i: list) {
-		System.out.println(i.getId());
-		System.out.println(i.getCustomerId());
-		System.out.println(i.getType());
-		System.out.println(i.getAmount());
-		System.out.println(i.getDate());
-	}
 	httpSession.setAttribute("history", list);
-//	
-//	RequestDispatcher requestDispatcher = req.getRequestDispatcher("HistoryPage.jsp");
-//	requestDispatcher.forward(req, resp);
-//	
+
 	resp.sendRedirect("HistoryPage.jsp");
 
 	
