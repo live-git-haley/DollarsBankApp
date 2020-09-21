@@ -6,7 +6,7 @@ public class Customer {
     private static AtomicInteger atomicInteger = new AtomicInteger(0);
 
 	
-	private Long id;
+	private static Long id;
 	private static Long count = 0L;
 	private String firstName;
 	private String lastName;
@@ -16,10 +16,10 @@ public class Customer {
 	private double initialAmount;
 	
 	
-	public Customer(Long id, String firstName, String lastName, String dob, String email, String password,
+	
+	public Customer(String firstName, String lastName, String dob, String email, String password,
 			double initialAmount) {
 		super();
-		this.id =  (long) atomicInteger.incrementAndGet();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dob = dob;
@@ -31,7 +31,7 @@ public class Customer {
 	
 
 	public Customer() {
-		this.id =  (long) atomicInteger.incrementAndGet();
+		this.id = -1L;
 		this.firstName = "NA";
 		this.lastName = "NA";
 		this.dob = "01/01/1990";

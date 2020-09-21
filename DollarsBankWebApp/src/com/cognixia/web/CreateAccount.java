@@ -50,6 +50,7 @@ public class CreateAccount extends HttpServlet {
 		
 		repo.newCustomer(newCustomer);
 		
+		
 		Account checkings = repo2.getAccount("checking", countID);
 		Account savings = repo2.getAccount("saving", countID);
 

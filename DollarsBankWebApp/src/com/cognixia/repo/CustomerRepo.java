@@ -75,17 +75,16 @@ public class CustomerRepo {
 	}
 
 	public void newCustomer(Customer customer) {
-	
+		
 		try {
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dollarbank", "root",
 					"haleykobe2");
-
+			
 			Statement statement = connection.createStatement();
-
 			statement.executeUpdate("insert into customer values("
-					+ customer.getId() + " , '"
+					+ 0L + " , '"
 					+ customer.getFirstName() + "', '"
 					+ customer.getLastName() + "', '" 
 					+ customer.getDob() + "' , '"
@@ -93,10 +92,9 @@ public class CustomerRepo {
 					+ customer.getPassword() + "' , "
 					+ customer.getinitialAmount() + ")");
 			
-			
-			statement.executeUpdate("insert into accounts values(" + customer.getId() + ", " + customer.getId()+ ", 'checking', " + customer.getinitialAmount() + ")");
-			Long newID = customer.getId() +1L;
-			statement.executeUpdate("insert into accounts values(" + newID + ", " + customer.getId() + ", 'saving', 0.0)");
+			Long customerId = getCustomerId(customer.getEmail(), customer.getPassword());
+			statement.executeUpdate("insert into accounts values (" + 0L + ", " + customerId+ ", 'checking', " + customer.getinitialAmount() + ")");
+			statement.executeUpdate("insert into accounts values(" + 0L + "," + customerId + ", 'saving', 0.0)");
 			
 		
 		
@@ -111,6 +109,39 @@ public class CustomerRepo {
 		
 		
 
+	}
+	
+	public static Long getCustomerId(String email, String password) {
+		Long foundId;
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection connection;
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dollarbank", "root",
+					"haleykobe2");
+			Statement statement = connection.createStatement();
+			
+			ResultSet found = statement.executeQuery("select id from customer where email = '" + email + "' AND password = '" + password + "'");
+	
+			found.next();
+			
+			foundId = found.getLong("id");
+			statement.close();
+			connection.close();
+			found.close();
+			return(foundId);
+			
+			
+			
+
+		} catch (SQLException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
+		
+		
+	return(-1L);
+		
 	}
 
 	
