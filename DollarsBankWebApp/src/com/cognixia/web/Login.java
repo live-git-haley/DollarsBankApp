@@ -33,9 +33,11 @@ public class Login extends HttpServlet{
 		
 		DollarsBankController controller = new DollarsBankController();
 		
-		List<Customer> list = repo.getCustomers("getMany", -1L);
+		List<Customer> list = repo.getCustomers();
+		
+		
 		Customer current = controller.login(list, email, password);
-
+		System.out.println(current.getId());
 		boolean redirect = false;
 		if(current.getLastName()!= "NA") {
 			
@@ -54,7 +56,9 @@ public class Login extends HttpServlet{
 		
 		Account checkings = repo2.getAccount("checking", id);
 		Account savings = repo2.getAccount("saving", id);
-
+		
+		System.out.println(checkings.toString());
+		System.out.println(savings.toString());
 		
 		
 		String currentChecking = Double.toString(checkings.getAmount());

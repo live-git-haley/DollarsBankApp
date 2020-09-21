@@ -26,9 +26,10 @@ public class Info extends HttpServlet{
 	Object id = httpSession.getAttribute("id");
 	Long longID  = Long.parseLong(id.toString());
 	CustomerRepo repo = new CustomerRepo();
-	List<Customer> customer = repo.getCustomers("getOne", longID);
 	
-	for(Customer c: customer) {
+	Customer c = repo.getCustomerById(longID);
+	
+
 		httpSession.setAttribute("firstName", c.getFirstName());
 		httpSession.setAttribute("lastName", c.getLastName());
 		httpSession.setAttribute("email", c.getEmail());
@@ -36,7 +37,7 @@ public class Info extends HttpServlet{
 
 		
 		
-	}
+	
 
 	
 	resp.sendRedirect("InfoPage.jsp");

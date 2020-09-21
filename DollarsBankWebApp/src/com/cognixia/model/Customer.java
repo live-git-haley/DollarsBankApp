@@ -6,8 +6,7 @@ public class Customer {
     private static AtomicInteger atomicInteger = new AtomicInteger(0);
 
 	
-	private static Long id;
-	private static Long count = 0L;
+	private Long id;
 	private String firstName;
 	private String lastName;
 	private String dob;
@@ -20,6 +19,8 @@ public class Customer {
 	public Customer(String firstName, String lastName, String dob, String email, String password,
 			double initialAmount) {
 		super();
+		this.id = -1L;
+
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dob = dob;

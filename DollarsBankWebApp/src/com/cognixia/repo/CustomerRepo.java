@@ -21,10 +21,11 @@ public class CustomerRepo {
 	
 	
 
-	public List<Customer> getCustomers(String action, Long id) {
+	public List<Customer> getCustomers() {
 
 		List<Customer> customerList = new ArrayList<Customer>();
-		List<Customer> oneCustomer = new ArrayList<Customer>();
+		List<Customer> emptyList = new ArrayList<Customer>();
+
 		
 		
 		try {
@@ -43,32 +44,26 @@ public class CustomerRepo {
 				customer.setDob(customers.getString("dob"));
 				customer.setPassword(customers.getString("password"));
 				customer.setinitialAmount(customers.getDouble("amount"));
-				
-				if(customers.getLong("id") == id){
-					oneCustomer.add(customer);
-				}
+			
 				customerList.add(customer);
 
 			}
-			
-		
 			customers.close();
 			statement.close();
 
+			return (customerList);
+		
+			
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		
-		if(action.equals("getOne")) {
-			return(oneCustomer);
-		}
-		else {
 
-		return (customerList);
+		return(emptyList);
 		}
 
-	}
+
 
 	public void newCustomer(Customer customer) {
 		
@@ -127,6 +122,44 @@ public class CustomerRepo {
 		
 		
 	return(-1L);
+		
+	}
+	
+	
+	public  Customer getCustomerById(Long id) {
+		Long foundId;
+		Customer customer = new Customer();
+		try {
+						
+			Statement statement = connect.createStatement();
+			
+			ResultSet found = statement.executeQuery("select * from customer where id = " + id);
+	
+			found.next();
+			
+			customer.setId(found.getLong("id"));
+			customer.setFirstName(found.getString("firstName"));
+			customer.setLastName(found.getString("lastName"));
+			customer.setDob(found.getString("dob"));
+			customer.setEmail(found.getString("email"));
+			customer.setPassword(found.getString("password"));
+
+			
+			statement.close();
+		
+			found.close();
+			return(customer);
+			
+			
+			
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
+		
+		
+	return(customer);
 		
 	}
 	

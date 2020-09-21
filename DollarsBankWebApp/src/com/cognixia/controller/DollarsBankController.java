@@ -50,9 +50,10 @@ public class DollarsBankController {
 		Boolean valid = false;
 		
 		for(int i = 0; i <= customerList.size()-1; i++) {
-			if(email.contentEquals(customerList.get(i).getEmail()) && password.contentEquals(customerList.get(i).getPassword())) {
+			if(email.equals(customerList.get(i).getEmail()) && password.equals(customerList.get(i).getPassword())) {
 				System.out.println("Valid...");
 				valid = true;
+				System.out.println(customerList.get(i).toString());
 				return(customerList.get(i));
 			}
 

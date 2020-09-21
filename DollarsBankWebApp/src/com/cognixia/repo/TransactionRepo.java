@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.cognixia.connection.ConnectionClass;
 import com.cognixia.model.Transactions;
 
 public class TransactionRepo {
@@ -15,18 +16,17 @@ public class TransactionRepo {
 	int newCount;
 	String transAccount;
 	
+	static ConnectionClass connectionClass = new ConnectionClass();
+	static Connection connect = connectionClass.makeConnection();
+	
+	
 	
 	public double makeTransaction(Long id, double amount, String action, String accountType) {
 		double newAmount = 0.0;
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
 			
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dollarbank", "root",
-					"haleykobe2");
-
-
-			Statement statement = connection.createStatement();
+			Statement statement = connect.createStatement();
 
 			ResultSet currAmount = statement.executeQuery("select amount from accounts WHERE customerId = " + id + " And accountType = '"  
 										+ accountType +  "'");
@@ -112,13 +112,12 @@ public class TransactionRepo {
 					+ ", '1/1/2020', '" 
 					+ accountType + "')");
 			}
-			connection.close();
 			currAmount.close();
 			statement.close();
 			max.close();
 			
 
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		return(newAmount);
@@ -129,12 +128,7 @@ public class TransactionRepo {
 
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dollarbank", "root",
-					"haleykobe2");
-
-
-			Statement statement = connection.createStatement();
+			Statement statement = connect.createStatement();
 
 			ResultSet transactions = statement.executeQuery("select * from Transactions where customerId = " + id);
 			double amt = 0;
@@ -153,14 +147,13 @@ public class TransactionRepo {
 				
 			}
 		
-			connection.close();
 			transactions.close();
 			statement.close();
 		
 
 
 
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		return(list);
