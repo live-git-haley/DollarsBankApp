@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.cognixia.connection.ConnectionClass;
 import com.cognixia.model.Customer;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,9 +16,10 @@ import java.sql.Statement;
 public class CustomerRepo {
 
 	
-	int newCount;
-	int count;
-	int count2;
+	static ConnectionClass connectionClass = new ConnectionClass();
+	static Connection connect = connectionClass.makeConnection();
+	
+	
 
 	public List<Customer> getCustomers(String action, Long id) {
 
@@ -27,12 +29,7 @@ public class CustomerRepo {
 		
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dollarbank", "root",
-					"haleykobe2");
-
-
-			Statement statement = connection.createStatement();
+			Statement statement = connect.createStatement();
 			ResultSet customers = statement.executeQuery("select * from Customer");
 
 		
@@ -57,10 +54,9 @@ public class CustomerRepo {
 		
 			customers.close();
 			statement.close();
-			connection.close();
 
 
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		
@@ -77,12 +73,8 @@ public class CustomerRepo {
 	public void newCustomer(Customer customer) {
 		
 		try {
-
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dollarbank", "root",
-					"haleykobe2");
 			
-			Statement statement = connection.createStatement();
+			Statement statement = connect.createStatement();
 			statement.executeUpdate("insert into customer values("
 					+ 0L + " , '"
 					+ customer.getFirstName() + "', '"
@@ -95,15 +87,13 @@ public class CustomerRepo {
 			Long customerId = getCustomerId(customer.getEmail(), customer.getPassword());
 			statement.executeUpdate("insert into accounts values (" + 0L + ", " + customerId+ ", 'checking', " + customer.getinitialAmount() + ")");
 			statement.executeUpdate("insert into accounts values(" + 0L + "," + customerId + ", 'saving', 0.0)");
-			
-		
-		
+
 			statement.close();
-			connection.close();
+		
 		
 
 
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 		
@@ -114,12 +104,8 @@ public class CustomerRepo {
 	public static Long getCustomerId(String email, String password) {
 		Long foundId;
 		try {
-			
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection;
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/dollarbank", "root",
-					"haleykobe2");
-			Statement statement = connection.createStatement();
+						
+			Statement statement = connect.createStatement();
 			
 			ResultSet found = statement.executeQuery("select id from customer where email = '" + email + "' AND password = '" + password + "'");
 	
@@ -127,14 +113,14 @@ public class CustomerRepo {
 			
 			foundId = found.getLong("id");
 			statement.close();
-			connection.close();
+		
 			found.close();
 			return(foundId);
 			
 			
 			
 
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.getMessage();
 		}
@@ -143,6 +129,8 @@ public class CustomerRepo {
 	return(-1L);
 		
 	}
+	
+	
 
 	
 
