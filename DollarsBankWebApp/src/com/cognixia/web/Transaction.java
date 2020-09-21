@@ -21,6 +21,8 @@ import com.cognixia.repo.TransactionRepo;
 @WebServlet("/Transaction")
 public class Transaction extends HttpServlet{
 	double newAmount = 0.0;
+	
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	String amount = req.getParameter("amount");

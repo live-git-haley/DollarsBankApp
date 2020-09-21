@@ -31,11 +31,12 @@ public class TransactionRepo {
 			ResultSet currAmount = statement.executeQuery("select amount from accounts WHERE customerId = " + id + " And accountType = '"  
 										+ accountType +  "'");
 			
-			System.out.println(currAmount.first());
+			currAmount.next();
 			double amt = 0;
 		
-
+			
 			amt = currAmount.getDouble("amount");
+			
 			if(amt < amount && action.equals("withdraw")) {
 				return -1.0;
 			}
@@ -77,9 +78,11 @@ public class TransactionRepo {
 				ResultSet amount2 = statement.executeQuery("select amount from accounts WHERE customerId = " + id + " And accountType = '"  
 						+ transAccount +  "'");
 				
+				amount2.next();
 				double amt2 = amount2.getDouble("amount");
 				
 				double newAmount2 = amount + amt2;
+				
 				
 				statement.executeUpdate("UPDATE accounts SET amount = " + newAmount2 + " WHERE customerId = " + id + " And accountType = '"
 						+ transAccount + "'");
